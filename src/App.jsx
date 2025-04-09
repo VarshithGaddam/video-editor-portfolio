@@ -2,6 +2,7 @@ import React from 'react';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
+import ShortVideoSection from './components/ShortVideoSection'; // New component
 import EditThumbnails from './components/EditThumbnails';
 import About from './components/About';
 import SampleReel from './components/SampleReel';
@@ -21,11 +22,12 @@ function App() {
       <div className={`app ${theme}`}>
         <Navigation toggleTheme={toggleTheme} theme={theme} />
         <Hero />
+        <ShortVideoSection /> {/* Added new Short Video Section */}
         <EditThumbnails />
         <About />
         <SampleReel />
         <SocialChannels />
-        <GraphicsDesigning /> {/* Replace Portfolio with GraphicsDesigning */}
+        <GraphicsDesigning />
         <Services />
         <Testimonials />
         <Contact />
