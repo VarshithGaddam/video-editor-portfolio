@@ -5,8 +5,8 @@ import ReactPlayer from 'react-player';
 const ShortVideoSection = () => {
   // Array of YouTube Shorts URLs
   const videoUrls = [
-    'https://youtube.com/shorts/4uqlTKGNSuY?si=BXkgLxvmGnliyfpA',
     'https://youtube.com/shorts/_bKBVP5NNqY?si=33-APCnS7sBVHIup',
+    'https://youtube.com/shorts/4uqlTKGNSuY?si=BXkgLxvmGnliyfpA',
     'https://youtube.com/shorts/IFGSnr2Trj8?si=asZs7Hpfw4WSWggN',
   ];
 
