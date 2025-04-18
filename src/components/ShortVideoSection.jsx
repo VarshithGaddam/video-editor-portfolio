@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ReactPlayer from 'react-player';
 
 const ShortVideoSection = () => {
-  // YouTube Shorts URL
-  const videoUrl = 'https://youtube.com/shorts/IFGSnr2Trj8?si=X06_wCxSlBM_FByH';
+  // Array of YouTube Shorts URLs
+  const videoUrls = [
+    'https://youtube.com/shorts/4uqlTKGNSuY?si=BXkgLxvmGnliyfpA',
+    'https://youtube.com/shorts/_bKBVP5NNqY?si=33-APCnS7sBVHIup',
+    'https://youtube.com/shorts/IFGSnr2Trj8?si=asZs7Hpfw4WSWggN',
+  ];
+
+  const [currentVideoIndices, setCurrentVideoIndices] = useState([0, 1, 2]); // Indices for three videos
+
+  // Handle main video completion and rotate indices
+  const handleVideoEnd = (index) => {
+    setCurrentVideoIndices((prevIndices) => {
+      const newIndices = [...prevIndices];
+      newIndices[index] = (newIndices[index] + 1) % videoUrls.length;
+      return newIndices;
+    });
+  };
 
   return (
     <section id="short-video" className="short-video-section">
@@ -24,24 +39,31 @@ const ShortVideoSection = () => {
         viewport={{ once: true }}
       >
         <div className="video-container">
-          <ReactPlayer
-            url={videoUrl}
-            width="100%"
-            height="auto"
-            className="vertical-video"
-            controls
-            playing={true} // Autoplay (muted by default due to policy)
-            muted={true} // Required for autoplay
-            config={{
-              youtube: {
-                playerVars: {
-                  modestbranding: 1, // Hide YouTube logo
-                  rel: 0, // Disable related videos
-                },
-              },
-            }}
-          />
-          <p className="video-note">Check out this vertical video showcase!</p>
+          <div className="video-row">
+            {currentVideoIndices.map((index, i) => (
+              <div key={i} className="video-item">
+                <ReactPlayer
+                  url={videoUrls[index]}
+                  width="100%"
+                  height="auto"
+                  className="vertical-video"
+                  controls
+                  playing={i === 0} // Only the first video autoplays
+                  muted={i === 0} // Only the first video is muted for autoplay
+                  onEnded={() => handleVideoEnd(i)} // Rotate on end
+                  config={{
+                    youtube: {
+                      playerVars: {
+                        modestbranding: 1,
+                        rel: 0,
+                      },
+                    },
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+          <p className="video-note">Three vertical video showcases my work!</p>
         </div>
       </motion.div>
     </section>
