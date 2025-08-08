@@ -6,13 +6,37 @@ const Hero = () => {
     animate: { y: [0, -10, 0], transition: { duration: 2, repeat: Infinity, ease: 'easeInOut' } },
   };
 
+  // Function to handle smooth scrolling with offset
+  const handleScroll = (targetId) => {
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      const navbarHeight = 80; // Approximate height of the navbar (adjust if different)
+      const offsetTop = targetElement.getBoundingClientRect().top + window.scrollY - navbarHeight;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  // Function to trigger resume download
+  const handleDownloadResume = () => {
+    const resumeUrl = '/resume.pdf'; // Replace with your resume file path in the public folder
+    const link = document.createElement('a');
+    link.href = resumeUrl;
+    link.download = 'Pavan_Bandari_Resume.pdf'; // Customize the downloaded file name
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <section id="hero" className="hero">
       <div
         className="hero-background"
-        style={{ backgroundImage: 'url(https://github.com/VarshithGaddam/gifs/blob/main/pavan.png?raw=true)' }} // Updated image link
+        style={{ backgroundImage: 'url(https://github.com/VarshithGaddam/gifs/blob/main/pavan.png?raw=true)' }}
       >
-        <div className="hero-overlay"></div> {/* Dark overlay for text readability */}
+        <div className="hero-overlay"></div>
         <motion.div
           className="hero-content"
           initial={{ opacity: 0, y: 50 }}
@@ -48,8 +72,9 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
+              onClick={handleDownloadResume} // Trigger resume download
             >
-              View Portfolio
+              Download Resume
             </motion.button>
             <motion.button
               className="cta-button secondary"
@@ -58,6 +83,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.0 }}
+              onClick={() => handleScroll('contact')} // Scroll to Contact section
             >
               Contact Me
             </motion.button>
